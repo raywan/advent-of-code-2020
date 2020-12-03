@@ -1,3 +1,9 @@
+/*
+ * CREATED: 2020/12/02
+ * AUTHOR: Raymond Wan
+ * https://adventofcode.com/2020/day/1
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 
@@ -9,8 +15,8 @@ int cmp_func(const void *a, const void *b) {
 }
 
 int main(int argc, char *argv[]) {
-    uint32_t nums[DAY01_INPUT_SIZE]; 
     FILE *f = fopen("d01_input.txt", "r");
+    uint32_t nums[DAY01_INPUT_SIZE]; 
     uint32_t n;
     for (int i = 0; fscanf(f, "%d", &n) != EOF; i++) {
         nums[i] = n;
@@ -32,19 +38,23 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    for (int i = 0 ; i < DAY01_INPUT_SIZE - 1; i++) {
-        for (int j = i+1 ; j < DAY01_INPUT_SIZE; j++) {
-            int32_t diff = TARGET_SUM - nums[i] - nums[j];
-            if (diff > 0) {
-                for (int k = 0 ; k < DAY01_INPUT_SIZE; k++) {
-                    if ((k != i) && (k != j) && (diff == nums[k])) {
-                        printf("PART 2: %d\n", nums[i] * nums[j] * nums[k]);
-                        return 0;
-                    }
-                }
+    for (int i = 0 ; i < DAY01_INPUT_SIZE - 2; i++) {
+        uint32_t hold = nums[i];
+        int j = i+1;
+        int k = DAY01_INPUT_SIZE-1;
+        while (j < k) {
+            uint32_t sum = hold + nums[j] + nums[k];
+            if (sum == TARGET_SUM) {
+                printf("PART 2: %d\n", nums[i] * nums[j] * nums[k]);
+                return 0;
+            } else if (sum < 0) {
+                j++; 
+            } else {
+                k--;
             }
         }
     }
-
+    
+    fclose(f);
     return 0;
 }
