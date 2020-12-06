@@ -55,21 +55,18 @@ int main(int argc, char *argv[]) {
     char seat[MAX_SEAT_CODE_LEN];
     uint32_t max_seat_id = 0;
     uint32_t min_seat_id = UINT32_MAX;
-    uint32_t seat_ids[MAX_INPUT_SEATS];
+    uint32_t my_seat_id = 0;
     for (int i = 0; fscanf(f, "%s", seat) != EOF; i++) {
         uint32_t seat_id = process_seat_code(seat);
         max_seat_id = MAX(max_seat_id, seat_id);
         min_seat_id = MIN(min_seat_id, seat_id);
-        seat_ids[i] = seat_id;
+        my_seat_id += seat_id;
     }
 
     // Compute the arithmetic sum from the min and max seat ids
-    // Then subtract all the seat ids recorded. 
-    // Your seat id is the missing number that completes the arithmetic sum
-    uint32_t my_seat_id = ((max_seat_id-min_seat_id+1)/2) * (2 * min_seat_id + (max_seat_id - min_seat_id));
-    for (int i = 0; i < MAX_INPUT_SEATS; i++) {
-        my_seat_id -= seat_ids[i];
-    }
+    // Then subtract the sum of the seat ids to get your seat id
+    uint32_t arithmetic_sum = ((max_seat_id-min_seat_id+1)/2) * (2 * min_seat_id + (max_seat_id - min_seat_id));
+    my_seat_id = arithmetic_sum - my_seat_id;
 
     printf("PART 1: %u\n", max_seat_id);
     printf("PART 2: %d\n", my_seat_id);
