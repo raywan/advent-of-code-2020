@@ -1,3 +1,9 @@
+/*
+ * CREATED: 2020/12/12
+ * AUTHOR: Raymond Wan
+ * https://adventofcode.com/2020/day/12
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 

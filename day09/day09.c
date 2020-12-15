@@ -1,7 +1,12 @@
+/*
+ * CREATED: 2020/12/9
+ * AUTHOR: Raymond Wan
+ * https://adventofcode.com/2020/day/9
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include "../timer.h"
 
 #define MAX_INPUT_LINES 1024
 #define NUM_HISTORY 25
